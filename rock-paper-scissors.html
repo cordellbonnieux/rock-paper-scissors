@@ -8,16 +8,7 @@
   <script>
     let humanSelection;
     function humanPlay(){
-      let humanChoice = prompt("Rock, Paper or Scissors?");
-        if (humanChoice === "Rock"){
-            return humanSelection = "Rock"
-        }
-        if (humanChoice === "Paper"){
-            return humanSelection = "Paper"
-        }
-        if (humanChoice === "Scissors"){
-            return humanSelection = "Scissors"
-        }
+      let humanChoice = prompt("Rock, Paper or Scissors?").toLowerCase();
         if (humanChoice === "rock"){
             return humanSelection = "Rock"
         }
@@ -29,6 +20,7 @@
         }
         else {
             alert("Not a valid choice! Enter Rock, Paper or Scissors.")
+            humanPlay();
         }
     }
     let computerSelection;
