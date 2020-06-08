@@ -34,12 +34,10 @@
     let computerSelection;
     function computerPlay(){
         let computerChoices = ["Rock", "Paper", "Scissors"];
-        let computerSelection = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-        return computerSelection;
+        return computerSelection = computerChoices[Math.floor(Math.random() * computerChoices.length)];
     }
     let gameResult;
     function result(){
-        computerPlay();
         if (humanSelection === "Rock" && computerSelection === "Scissors"){
             gameResult = "congratulations! Rock beats Scissors";
         }
@@ -70,8 +68,11 @@
         return gameResult;
     }
     humanPlay();
+    console.log(humanSelection);
     computerPlay();
+    console.log(computerSelection);
     result();
+    console.log(gameResult);
     alert(gameResult);
     
   </script>
