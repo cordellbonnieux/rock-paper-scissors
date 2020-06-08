@@ -6,7 +6,12 @@
 </head>
 <body>
   <script>
-    // Your JavaScript goes here!
+    function computerPlay(){
+        let computerChoices = ["Rock", "Paper", "Scissors"];
+        let computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        return computerChoice;
+    }
+    console.log(computerPlay());
   </script>
 </body>
 </html>
