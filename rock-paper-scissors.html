@@ -29,44 +29,66 @@
         return computerSelection = computerChoices[Math.floor(Math.random() * computerChoices.length)];
     }
     let gameResult;
+    let humanScore = 0;
+    let computerScore = 0;
     function result(){
         if (humanSelection === "Rock" && computerSelection === "Scissors"){
             gameResult = "congratulations! Rock beats Scissors";
+            humanScore++;
         }
         if (humanSelection === "Rock" && computerSelection === "Rock"){
             gameResult = "Rock vs Rock, it's a tie!";
         }
         if (humanSelection === "Rock" && computerSelection === "Paper"){
             gameResult = "Paper beats Rock, you loose!";
+            computerScore++;
         }
         if (humanSelection === "Scissors" && computerSelection === "Paper"){
             gameResult = "congratulations! Scissors beat Paper!";
+            humanScore++;
         }
         if (humanSelection === "Scissors" && computerSelection === "Rock"){
             gameResult = "You lost, Rock beats Scissors!";
+            computerScore++;
         }
         if (humanSelection === "Scissors" && computerSelection === "Scissors"){
             gameResult = "Looks like it's a tie.";
         }
         if (humanSelection === "Paper" && computerSelection === "Scissors"){
             gameResult = "Looser! The computer played Scissors!";
+            computerScore++;
         }
         if (humanSelection === "Paper" && computerSelection === "Rock"){
             gameResult = "Your Paper beats the computers Rock, congratulations!";
+            humanScore++;
         }
         if (humanSelection === "Paper" && computerSelection === "Paper"){
             gameResult = "two Papers, it's a tie!";
         }
+        return humanScore;
+        return computerScore;
         return gameResult;
     }
-    humanPlay();
-    console.log(humanSelection);
-    computerPlay();
-    console.log(computerSelection);
-    result();
-    console.log(gameResult);
-    alert(gameResult);
-    
+    function matchLoop(){
+        humanPlay();
+        computerPlay();
+        result();
+        alert(gameResult);
+        console.log(`Your score:${humanScore}.`);
+        console.log(`Computer's score:${computerScore}.`);
+        if (humanScore === 5){
+            alert("You've won 5 matches, youwin the game!");
+            exit();
+        }
+        if (computerScore === 5){
+            alert("The Computer has won 5 matches, you've lost the game!");
+            exit();
+        }
+        else{
+            matchLoop();
+        }
+    }
+    matchLoop();
   </script>
 </body>
 </html>
