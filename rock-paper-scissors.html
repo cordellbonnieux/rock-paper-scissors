@@ -6,12 +6,74 @@
 </head>
 <body>
   <script>
+    let humanSelection;
+    function humanPlay(){
+      let humanChoice = prompt("Rock, Paper or Scissors?");
+        if (humanChoice === "Rock"){
+            return humanSelection = "Rock"
+        }
+        if (humanChoice === "Paper"){
+            return humanSelection = "Paper"
+        }
+        if (humanChoice === "Scissors"){
+            return humanSelection = "Scissors"
+        }
+        if (humanChoice === "rock"){
+            return humanSelection = "Rock"
+        }
+        if (humanChoice === "paper"){
+            return humanSelection = "Paper"
+        }
+        if (humanChoice === "scissors"){
+            return humanSelection = "Scissors"
+        }
+        else {
+            alert("Not a valid choice! Enter Rock, Paper or Scissors.")
+        }
+    }
+    let computerSelection;
     function computerPlay(){
         let computerChoices = ["Rock", "Paper", "Scissors"];
-        let computerChoice = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-        return computerChoice;
+        let computerSelection = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        return computerSelection;
     }
-    console.log(computerPlay());
+    let gameResult;
+    function result(){
+        computerPlay();
+        if (humanSelection === "Rock" && computerSelection === "Scissors"){
+            gameResult = "congratulations! Rock beats Scissors";
+        }
+        if (humanSelection === "Rock" && computerSelection === "Rock"){
+            gameResult = "Rock vs Rock, it's a tie!";
+        }
+        if (humanSelection === "Rock" && computerSelection === "Paper"){
+            gameResult = "Paper beats Rock, you loose!";
+        }
+        if (humanSelection === "Scissors" && computerSelection === "Paper"){
+            gameResult = "congratulations! Scissors beat Paper!";
+        }
+        if (humanSelection === "Scissors" && computerSelection === "Rock"){
+            gameResult = "You lost, Rock beats Scissors!";
+        }
+        if (humanSelection === "Scissors" && computerSelection === "Scissors"){
+            gameResult = "Looks like it's a tie.";
+        }
+        if (humanSelection === "Paper" && computerSelection === "Scissors"){
+            gameResult = "Looser! The computer played Scissors!";
+        }
+        if (humanSelection === "Paper" && computerSelection === "Rock"){
+            gameResult = "Your Paper beats the computers Rock, congratulations!";
+        }
+        if (humanSelection === "Paper" && computerSelection === "Paper"){
+            gameResult = "two Papers, it's a tie!";
+        }
+        return gameResult;
+    }
+    humanPlay();
+    computerPlay();
+    result();
+    alert(gameResult);
+    
   </script>
 </body>
 </html>
