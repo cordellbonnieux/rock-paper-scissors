@@ -1,94 +1,146 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Page Title</title>
+  <title>Rock, Paper, Scissors</title>
   <meta charset="UTF-8"/>
+  <style>
+      body{
+          background-image:url('background.jpg');
+          background-repeat:no-repeat;
+          background-size:100%;
+          text-align:center;
+      }
+      #wrapper{
+          background-color:#ffffff;
+          display:inline-block;
+          margin:50px;;
+          width:420px;
+      }
+    #container, #scoreBox, #lastMatch{
+        max-width:400px; 
+        display:block; 
+        margin:100px auto;
+        text-align:center;
+    }
+    #computerTracker, #humanTracker{
+        display:inline-block;
+    }
+        #computerTracker p, #humanTracker p {
+          display:inline;
+        }
+
+  </style>
 </head>
 <body>
-  <script>
-    let humanSelection;
-    function humanPlay(){
-      let humanChoice = prompt("Rock, Paper or Scissors?").toLowerCase();
-        if (humanChoice === "rock"){
-            return humanSelection = "Rock"
-        }
-        if (humanChoice === "paper"){
-            return humanSelection = "Paper"
-        }
-        if (humanChoice === "scissors"){
-            return humanSelection = "Scissors"
-        }
-        else {
-            alert("Not a valid choice! Enter Rock, Paper or Scissors.")
-            humanPlay();
-        }
-    }
-    let computerSelection;
-    function computerPlay(){
-        let computerChoices = ["Rock", "Paper", "Scissors"];
-        return computerSelection = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-    }
+<div id="wrapper">
+<div id="container">
+    <h1 style="font-size:18px;">Rock, Paper, Scissors.</h1>
+    <p>
+Click either "rock", "paper" or "scissors" to play a round against the computer. First to win 5 rounds wins the game!
+    </p>
+    <button id="Rock">Rock</button>
+    <button id="Paper">Paper</button>
+    <button id="Scissors">Scissors</button>
+</div>
+<div id="lastMatch">
+
+</div>
+<div id="scoreBox" style="text-align:center;">
+<div id="humanTracker">
+<p>Your Score:</p>
+</div>
+<div id="computerTracker">
+    <p>Computer's Score:</p>
+    </div>
+</div>
+</div>
+<script>
     let gameResult;
+    let humanSelection;
     let humanScore = 0;
     let computerScore = 0;
-    function result(){
-        if (humanSelection === "Rock" && computerSelection === "Scissors"){
-            gameResult = "congratulations! Rock beats Scissors";
-            humanScore++;
-        }
-        if (humanSelection === "Rock" && computerSelection === "Rock"){
-            gameResult = "Rock vs Rock, it's a tie!";
-        }
-        if (humanSelection === "Rock" && computerSelection === "Paper"){
-            gameResult = "Paper beats Rock, you loose!";
-            computerScore++;
-        }
-        if (humanSelection === "Scissors" && computerSelection === "Paper"){
-            gameResult = "congratulations! Scissors beat Paper!";
-            humanScore++;
-        }
-        if (humanSelection === "Scissors" && computerSelection === "Rock"){
-            gameResult = "You lost, Rock beats Scissors!";
-            computerScore++;
-        }
-        if (humanSelection === "Scissors" && computerSelection === "Scissors"){
-            gameResult = "Looks like it's a tie.";
-        }
-        if (humanSelection === "Paper" && computerSelection === "Scissors"){
-            gameResult = "Looser! The computer played Scissors!";
-            computerScore++;
-        }
-        if (humanSelection === "Paper" && computerSelection === "Rock"){
-            gameResult = "Your Paper beats the computers Rock, congratulations!";
-            humanScore++;
-        }
-        if (humanSelection === "Paper" && computerSelection === "Paper"){
-            gameResult = "two Papers, it's a tie!";
-        }
-        return humanScore;
-        return computerScore;
-        return gameResult;
-    }
-    function matchLoop(){
-        humanPlay();
-        computerPlay();
-        result();
-        alert(gameResult);
-        console.log(`Your score:${humanScore}.`);
-        console.log(`Computer's score:${computerScore}.`);
-        if (humanScore === 5){
-            alert("You've won 5 matches, youwin the game!");
-            exit();
-        }
-        if (computerScore === 5){
-            alert("The Computer has won 5 matches, you've lost the game!");
-            exit();
-        }
-        else{
-            matchLoop();
-        }
-    }
-    matchLoop();
-  </script>
+    const humanContainer = document.querySelector('#humanTracker');
+    let humanScoreTracker = document.createElement('p');
+    humanScoreTracker.style.cssText = "display:inline; margin:0 5px; color:blue;";
+    humanContainer.appendChild(humanScoreTracker);
+
+    const computerContainer = document.querySelector('#computerTracker');
+    let computerScoreTracker = document.createElement('p');
+    computerScoreTracker.style.cssText = "display:inline; margin:0 5px; color:red;";
+    computerContainer.appendChild(computerScoreTracker);
+
+    const lastMatchContainer = document.querySelector('#lastMatch');
+    let lastMatchReport = document.createElement('p');
+    lastMatchContainer.appendChild(lastMatchReport);
+
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach((button) =>{
+        button.addEventListener('click', () =>{
+            humanSelection = button.id;
+            console.log(humanSelection);
+            let computerChoices = ["Rock", "Paper", "Scissors"];
+            let computerSelection = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+            // ties
+            if (humanSelection == "Rock" && computerSelection == "Rock"){
+                console.log("rock vs rock - tie");
+                lastMatchReport.textContent = "Rock vs rock - it's a tie!";
+            }
+            if (humanSelection == "Paper" && computerSelection == "Paper"){
+                console.log("paper vs paper - tie");
+                lastMatchReport.textContent = "Paper vs paper - it's a tie!";
+            }
+            if (humanSelection == "Scissors" && computerSelection == "Scissors"){
+                console.log("scissors vs scissors - tie");
+                lastMatchReport.textContent = "Scissors vs scissors - it's a tie!";
+            }
+            // rock vs paper 
+            if (humanSelection == "Rock" && computerSelection == "Paper"){
+                console.log("rock vs paper - you loose");
+                lastMatchReport.textContent = "Rock vs paper - you lost the round.";
+                computerScore++;
+                computerScoreTracker.textContent = computerScore
+            }
+            if (humanSelection == "Paper" && computerSelection == "Rock"){
+                console.log("Paper vs Rock - you win");
+                lastMatchReport.textContent = "Paper vs rock - you won the round.";
+                humanScore++;
+                humanScoreTracker.textContent = humanScore;
+            }
+            // rock vs scissors
+            if (humanSelection == "Rock" && computerSelection == "Scissors"){
+                console.log("rock vs scissors - you win");
+                lastMatchReport.textContent = "Rock vs scissors - you won the round.";
+                humanScore++;
+                humanScoreTracker.textContent = humanScore;
+            }
+            if (humanSelection == "Scissors" && computerSelection == "Rock"){
+                console.log("Scissors vs Rock - you loose");
+                lastMatchReport.textContent = "Scissors vs rock - you lost the round.";
+                computerScore++;
+                computerScoreTracker.textContent = computerScore
+            }
+            // scissors vs paper
+            if (humanSelection == "Paper" && computerSelection == "Scissors"){
+                console.log("paper vs scissors - you loose");
+                lastMatchReport.textContent = "Paper vs scissors - you lost the round.";
+                computerScore++;
+                computerScoreTracker.textContent = computerScore
+            }
+            if (humanSelection == "Scissors" && computerSelection == "Paper"){
+                console.log("Scissors vs paper - you win");
+                lastMatchReport.textContent = "Scissors vs paper - you won the round.";
+                humanScore++;
+                humanScoreTracker.textContent = humanScore;
+            }
+            if (humanScore >= 5){
+                alert('you win!');
+            }
+            if (computerScore >= 5){
+                alert('you loose!');
+            }
+            
+        })
+    })
+     </script>
 </body>
 </html>
